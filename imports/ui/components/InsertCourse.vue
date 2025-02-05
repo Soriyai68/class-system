@@ -8,6 +8,7 @@
       v-model="centerDialogVisible"
       :title="form._id ? 'កែសម្រួលវគ្គសិក្សា' : 'បន្ថែមវគ្គសិក្សា'"
       width="500px"
+
       center
       :close-on-click-modal="true"
     >
@@ -30,9 +31,11 @@
 
         <el-form-item label="ពិពណ៌នា" prop="description">
           <el-input
+            type="textarea"
             v-model="form.description"
             placeholder="បញ្ចូលពិពណ៌នាវគ្គសិក្សា"
-            size="default"
+            :rows="3"
+            autosize
             clearable
           />
         </el-form-item>
@@ -78,7 +81,13 @@
       </el-form>
     </el-dialog>
 
-    <el-table :data="dataTable" style="width: 99%" border stripe v-loading="loading">
+    <el-table
+      :data="dataTable"
+      style="width: 99%"
+      border
+      stripe
+      v-loading="loading"
+    >
       <el-table-column type="index" label="លេខ" width="60" />
       <el-table-column prop="course_name" label="ឈ្មោះវគ្គសិក្សា">
         <template #default="scope">
@@ -94,13 +103,17 @@
       </el-table-column>
 
       <!-- Teacher column -->
-      <el-table-column label="គ្រូ" >
+      <el-table-column label="គ្រូ">
         <template #default="scope">
           <span>{{ getTeacherName(scope.row.teacher_id) }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column prop="description" label="ពិពណ៌នា" />
+      <el-table-column prop="description" label="ពិពណ៌នា">
+        <template #default="scope">
+          <span style="white-space: pre-line">{{ scope.row.description }}</span>
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
@@ -128,9 +141,7 @@ const rules = {
   course_name: [
     { required: true, message: "ឈ្មោះវគ្គសិក្សាគឺមានតំលៃ", trigger: "blur" },
   ],
-  teacher_id: [
-    { required: true, message: "គ្រូគឺមានតំលៃ", trigger: "blur" },
-  ],
+  teacher_id: [{ required: true, message: "គ្រូគឺមានតំលៃ", trigger: "blur" }],
 };
 
 const notify = (message: string, type: "success" | "error") => {
@@ -169,7 +180,12 @@ const onSubmit = () => {
         console.error("Error during insert/update:", err);
         notify("ប្រតិបត្តិការមិនបានជោគជ័យ", "error");
       } else {
-        notify(form.value._id ? "បានធ្វើបច្ចុប្បន្នភាពដោយជោគជ័យ" : "បានបន្ថែមដោយជោគជ័យ", "success");
+        notify(
+          form.value._id
+            ? "បានធ្វើបច្ចុប្បន្នភាពដោយជោគជ័យ"
+            : "បានបន្ថែមដោយជោគជ័យ",
+          "success"
+        );
         resetForm();
         getData();
         centerDialogVisible.value = false;
@@ -241,3 +257,5 @@ onMounted(() => {
   getData();
 });
 </script>
+
+

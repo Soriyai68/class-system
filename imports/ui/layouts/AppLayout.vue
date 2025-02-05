@@ -19,9 +19,7 @@
     </header>
 
     <div class="flex flex-grow mb-8">
-      <!-- Sidebar with light background and improved padding -->
-      <!-- 'relative' class ensures the absolute logout container is positioned relative to the sidebar -->
-      <aside
+       <aside
         v-show="sidebarVisible"
         class="relative w-62 bg-gray-300 h-full flex flex-col rounded-br-3xl rounded-tl-3xl rounded-tr-lg rounded-bl-lg m-4 p-6 text-center font-semibold transition-transform shadow-md"
       >
