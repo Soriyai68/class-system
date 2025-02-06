@@ -1,7 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { createApp } from 'vue';
 //element-plus
-import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import ElementPlus from 'element-plus';
 import 'element-plus/dist/index.css';
 //vue
@@ -18,10 +17,6 @@ Meteor.startup(() => {
     app.use(router);
     // Use ElementPlus
     app.use(ElementPlus);
-    //translation
-    app.use(ElementPlus, {
-        locale: zhCn,
-    });
     // Mount the app
     app.mount('#app');
 });
