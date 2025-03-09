@@ -46,19 +46,18 @@
           {{ isLoading ? 'Logging in...' : 'Login' }}
         </button>
       </form>
-      <p class="mt-4 text-sm text-center text-gray-600">
-        Don't have an account? 
-        <router-link to="/signup" class="text-blue-500 hover:underline">Sign up</router-link>
-      </p>
       <div v-if="errorMessage" class="mt-4 text-sm text-center text-red-500">
         {{ errorMessage }}
+      </div>
+      <div v-if="user" class="mt-4 text-sm text-center text-green-500">
+        Logged in as: {{ user.emails[0].address }}
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { Meteor } from 'meteor/meteor';
 
@@ -67,6 +66,7 @@ const password = ref('');
 const showPassword = ref(false);
 const isLoading = ref(false);
 const errorMessage = ref('');
+const user = ref(null);
 const router = useRouter();
 
 const login = () => {
@@ -83,8 +83,13 @@ const login = () => {
     if (error) {
       errorMessage.value = error.reason || 'Login failed. Please try again.';
     } else {
-      router.push('/insertstudent');
+      user.value = Meteor.user();
+      router.push('/home');
     }
   });
 };
+
+watch(() => Meteor.user(), (newUser) => {
+  user.value = newUser;
+});
 </script>

@@ -115,7 +115,7 @@ const signup = () => {
       if (error) {
         errorMessage.value = error.reason || "Signup failed. Please try again.";
       } else {
-        router.push("/insertstudent ");
+        router.push("/home");
       }
     }
   );
