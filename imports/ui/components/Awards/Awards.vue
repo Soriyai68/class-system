@@ -57,6 +57,7 @@
 
         <el-form-item label="AwardUrl" prop="imageUrl">
           <div class="flex flex-col items-end">
+<<<<<<< HEAD
             <input
               type="file"
               ref="fileInput"
@@ -70,6 +71,10 @@
               v-if="file"
               class="mt-2"
             >
+=======
+            <input type="file" ref="fileInput" @change="handleChange" class="w-full" />
+            <el-button type="primary" size="mini" @click="handleUpload" v-if="file" class="mt-2">
+>>>>>>> 92e68984dfd6ec38312b9f190580ddcf80fba0cd
               Upload
               <el-icon class="el-icon--right">
                 <Upload />
@@ -78,6 +83,7 @@
 
             <div v-if="form.imageUrl" class="relative w-full max-w-xs mt-4">
               <div class="relative group w-32 h-32">
+<<<<<<< HEAD
                 <img
                   :src="form.imageUrl"
                   alt="Uploaded Image"
@@ -90,10 +96,18 @@
                   @click="removeImageUrl"
                   class="absolute top-2 right-2 bg-white text-gray-500 hover:text-red-500 hover:bg-gray-100 shadow group-hover:opacity-100 opacity-0 transition duration-300 ease-in-out"
                 />
+=======
+                <img :src="form.imageUrl" alt="Uploaded Image" class="w-full h-full object-cover rounded-lg shadow border border-gray-200 transition duration-300 ease-in-out group-hover:opacity-80" />
+                <el-button size="mini" circle :icon="Delete" @click="removeImageUrl" class="absolute top-2 right-2 bg-white text-gray-500 hover:text-red-500 hover:bg-gray-100 shadow group-hover:opacity-100 opacity-0 transition duration-300 ease-in-out" />
+>>>>>>> 92e68984dfd6ec38312b9f190580ddcf80fba0cd
               </div>
             </div>
           </div>
         </el-form-item>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 92e68984dfd6ec38312b9f190580ddcf80fba0cd
       </el-form>
 
       <el-form-item>
@@ -146,12 +160,16 @@
       <el-table-column label="Award Picture">
         <template #default="scope">
           <div class="flex justify-center">
+<<<<<<< HEAD
             <img
               v-if="scope.row.imageUrl"
               :src="scope.row.imageUrl"
               alt="Award Image"
               class="w-12 h-12 object-cover rounded"
             />
+=======
+            <img v-if="scope.row.imageUrl" :src="scope.row.imageUrl" alt="Award Image" class="w-12 h-12 object-cover rounded" />
+>>>>>>> 92e68984dfd6ec38312b9f190580ddcf80fba0cd
           </div>
         </template>
       </el-table-column>
@@ -196,6 +214,7 @@ const centerDialogVisible = ref(false);
 const loading = ref(false);
 const loadingForm = ref(false);
 const refForm = ref(null);
+<<<<<<< HEAD
 const form = ref({
   employee_id: "",
   award_date: "",
@@ -203,6 +222,9 @@ const form = ref({
   status: "Pending",
   imageUrl: "",
 });
+=======
+const form = ref({ employee_id: "", award_date: "", reason: "", status: "Pending", imageUrl: "" });
+>>>>>>> 92e68984dfd6ec38312b9f190580ddcf80fba0cd
 const dataTable = ref([]);
 const searchQuery = ref("");
 const employees = ref([]);
@@ -222,9 +244,13 @@ const rules = {
   ],
   reason: [{ required: true, message: "Reason is required", trigger: "blur" }],
   status: [{ required: true, message: "Status is required", trigger: "blur" }],
+<<<<<<< HEAD
   imageUrl: [
     { required: false, message: "Image is required", trigger: "blur" },
   ],
+=======
+  imageUrl: [{ required: false, message: "Image is required", trigger: "blur" }],
+>>>>>>> 92e68984dfd6ec38312b9f190580ddcf80fba0cd
 };
 
 const notify = (message, type) => {
@@ -255,10 +281,14 @@ const onSubmit = () => {
       if (err) {
         notify(`Operation failed: ${err.message}`, "error");
       } else {
+<<<<<<< HEAD
         notify(
           form.value._id ? "Updated successfully" : "Added successfully",
           "success"
         );
+=======
+        notify(form.value._id ? "Updated successfully" : "Added successfully", "success");
+>>>>>>> 92e68984dfd6ec38312b9f190580ddcf80fba0cd
         resetForm();
         getData();
         centerDialogVisible.value = false;
@@ -284,6 +314,7 @@ const removeAward = () => {
 
 const resetForm = () => {
   refForm.value?.resetFields();
+<<<<<<< HEAD
   form.value = {
     employee_id: "",
     award_date: "",
@@ -291,6 +322,9 @@ const resetForm = () => {
     status: "Pending",
     imageUrl: "",
   };
+=======
+  form.value = { employee_id: "", award_date: "", reason: "", status: "Pending", imageUrl: "" };
+>>>>>>> 92e68984dfd6ec38312b9f190580ddcf80fba0cd
   delete form.value._id;
 };
 
@@ -343,6 +377,7 @@ const formatDate = (date) => {
   const d = new Date(date);
   const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const months = [
+<<<<<<< HEAD
     "Jan",
     "Feb",
     "Mar",
@@ -355,6 +390,9 @@ const formatDate = (date) => {
     "Oct",
     "Nov",
     "Dec",
+=======
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+>>>>>>> 92e68984dfd6ec38312b9f190580ddcf80fba0cd
   ];
   const day = days[d.getDay()];
   const month = months[d.getMonth()];
@@ -468,9 +506,13 @@ const removeFileFromServer = (id) => {
 
 const removeImageUrl = () => {
   if (form.value.imageUrl) {
+<<<<<<< HEAD
     const fileToRemove = fileData.value.find(
       (file) => file.url === form.value.imageUrl
     );
+=======
+    const fileToRemove = fileData.value.find((file) => file.url === form.value.imageUrl);
+>>>>>>> 92e68984dfd6ec38312b9f190580ddcf80fba0cd
     if (fileToRemove && fileToRemove._id) {
       removeFileFromServer(fileToRemove._id);
     }

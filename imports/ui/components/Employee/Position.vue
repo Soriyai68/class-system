@@ -155,6 +155,7 @@ const openPositionDialog = () => {
 };
 
 const editPosition = (pos: Position) => {
+<<<<<<< HEAD
   // Create a deep copy of the position to avoid reference issues
   form.value = {
     _id: pos._id,
@@ -162,6 +163,9 @@ const editPosition = (pos: Position) => {
     description: pos.description || '',
     division_id: pos.division_id,
   };
+=======
+  form.value = { ...pos };
+>>>>>>> 92e68984dfd6ec38312b9f190580ddcf80fba0cd
   dialogVisible.value = true;
 };
 
@@ -173,6 +177,7 @@ const onSubmit = () => {
       notify("Validation failed", "error");
       return;
     }
+<<<<<<< HEAD
 
     const methodName = form.value._id ? "updatePosition" : "insertPosition";
     const payload = { ...form.value };
@@ -183,6 +188,10 @@ const onSubmit = () => {
     }
 
     Meteor.call(methodName, payload, (err: Error) => {
+=======
+    const methodName = form.value._id ? "updatePosition" : "insertPosition";
+    Meteor.call(methodName, { ...form.value }, (err: Error) => {
+>>>>>>> 92e68984dfd6ec38312b9f190580ddcf80fba0cd
       loadingForm.value = false;
       if (err) {
         notify(`Operation failed: ${err.message}`, "error");
@@ -191,9 +200,15 @@ const onSubmit = () => {
           form.value._id ? "Updated successfully" : "Added successfully",
           "success"
         );
+<<<<<<< HEAD
         dialogVisible.value = false;
         resetForm();
         getPositions();
+=======
+        resetForm();
+        getPositions();
+        dialogVisible.value = false;
+>>>>>>> 92e68984dfd6ec38312b9f190580ddcf80fba0cd
       }
     });
   });

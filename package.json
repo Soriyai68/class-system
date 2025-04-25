@@ -10,10 +10,14 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.23.5",
+    "bcrypt": "^5.1.1",
     "date-fns": "^4.1.0",
     "element-plus": "^2.9.3",
     "meteor-node-stubs": "^1.2.12",
+<<<<<<< HEAD
     "mup": "^1.5.11",
+=======
+>>>>>>> 92e68984dfd6ec38312b9f190580ddcf80fba0cd
     "print-js": "^1.6.0",
     "simpl-schema": "^3.4.6",
     "vue": "^3.3.9",

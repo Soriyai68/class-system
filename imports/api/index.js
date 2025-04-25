@@ -14,6 +14,9 @@ import "./leaveapplication";
 import "./salarysetup";
 import "./salarygenerate"
 import "./employeessalary"
+<<<<<<< HEAD
 import "./lookup"
+=======
+>>>>>>> 92e68984dfd6ec38312b9f190580ddcf80fba0cd
 import '/imports/api/files/methods';
  

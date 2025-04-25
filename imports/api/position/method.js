@@ -83,7 +83,11 @@ new ValidatedMethod({
   mixins: [],
   validate: new SimpleSchema({
     _id: { type: String },
+<<<<<<< HEAD
     title: { type: String, max: 100 }, // Remove optional
+=======
+    title: { type: String, optional: true },
+>>>>>>> 92e68984dfd6ec38312b9f190580ddcf80fba0cd
     description: { type: String, optional: true },
     division_id: { type: String },
   }).validator(),
@@ -101,8 +105,12 @@ new ValidatedMethod({
 
     try {
       const { _id, ...updateData } = positionData;
+<<<<<<< HEAD
       await Position.updateAsync({ _id }, { $set: updateData });
       return { message: 'Position updated successfully!' };
+=======
+      return await Position.updateAsync({ _id }, { $set: updateData });
+>>>>>>> 92e68984dfd6ec38312b9f190580ddcf80fba0cd
     } catch (error) {
       throw new Meteor.Error('Database Error', `Failed to update position: ${error.message}`);
     }

@@ -59,12 +59,20 @@
               <el-icon>
                 <star />
               </el-icon>
+<<<<<<< HEAD
              Manage Award
+=======
+              Award
+>>>>>>> 92e68984dfd6ec38312b9f190580ddcf80fba0cd
             </template>
             <el-menu-item-group>
               <template #title>Award</template>
               <el-menu-item index="3-1"
+<<<<<<< HEAD
                 ><router-link to="/award">Manage Award</router-link></el-menu-item
+=======
+                ><router-link to="/award">New Award</router-link></el-menu-item
+>>>>>>> 92e68984dfd6ec38312b9f190580ddcf80fba0cd
               >
             </el-menu-item-group>
           </el-sub-menu>
@@ -80,10 +88,17 @@
               <template #title>Recruitment</template>
               <el-menu-item index="4-1"
                 ><router-link to="/cadidate"
+<<<<<<< HEAD
                   >Manage Candidate</router-link
                 ></el-menu-item
               >
               <!-- <el-menu-item index="4-2">Manage Candidate</el-menu-item> -->
+=======
+                  >New Candidate</router-link
+                ></el-menu-item
+              >
+              <el-menu-item index="4-2">Manage Candidate</el-menu-item>
+>>>>>>> 92e68984dfd6ec38312b9f190580ddcf80fba0cd
               <el-menu-item index="4-2.1">
                 <router-link to="/shortlist"> Candidate Shortlist </router-link>
               </el-menu-item>

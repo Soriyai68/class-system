@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <div class="p-4">
     <!-- <button
       @click="fetchPassedCandidates"
@@ -31,11 +32,36 @@
         </tbody>
       </table>
     </div>
+=======
+  <div>
+    <el-button type="" plain @click="fetchPassedCandidates" class="mb-4">
+      Click Candidates
+    </el-button>
+
+    <el-table
+      :data="passedCandidates"
+      style="width: 100%"
+      border
+      stripe
+
+      class="modern-table"
+      v-loading="loading"
+    >
+      <el-table-column type="index" label="#" width="60" />
+      <el-table-column prop="name" label="Candidate Name" />
+      <el-table-column prop="email" label="Email" />
+      <el-table-column prop="phone" label="Phone" />
+    </el-table>
+>>>>>>> 92e68984dfd6ec38312b9f190580ddcf80fba0cd
   </div>
 </template>
 
 <script lang="ts" setup>
+<<<<<<< HEAD
 import { ref, onMounted } from "vue";
+=======
+import { ref } from "vue";
+>>>>>>> 92e68984dfd6ec38312b9f190580ddcf80fba0cd
 import { Meteor } from "meteor/meteor";
 import { ElNotification } from "element-plus";
 
@@ -65,6 +91,7 @@ function fetchPassedCandidates() {
     loading.value = false;
   });
 }
+<<<<<<< HEAD
 
 // Automatically fetch candidates when the component is mounted
 onMounted(() => {
@@ -75,3 +102,6 @@ onMounted(() => {
 <style scoped>
 /* Add any additional styles here if needed */
 </style>
+=======
+</script>
+>>>>>>> 92e68984dfd6ec38312b9f190580ddcf80fba0cd
