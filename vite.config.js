@@ -6,6 +6,9 @@ export default defineConfig({
   meteor: {
     clientEntry: 'imports/ui/main.js',
   },
+  server: {
+    host: true ,
+  },
   optimizeDeps: {
     exclude: ['vue-meteor-tracker'],
   },

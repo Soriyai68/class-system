@@ -22,7 +22,7 @@ import { ElButton } from "element-plus";
 const router = useRouter();
 
 const goHome = () => {
-  router.push("/");
+  router.push("/home");
 };
 </script>
 

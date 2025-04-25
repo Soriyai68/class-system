@@ -1,167 +1,385 @@
 <template>
-  <div class="h-screen flex flex-col bg-gray-50">
-    <!-- Header with a light gradient and subtle shadow -->
-    <header
-      v-if="isLoggedIn"
-      class="bg-gradient-to-r from-gray-300 to-gray-400 w-100 mx-4 mt-4 mr-4 rounded-br-3xl rounded-tl-3xl rounded-tr-lg rounded-bl-lg shadow-md"
+  <el-container
+    class="layout-container-demo font-semibold animated-bg h-screen"
+  >
+    <!-- Background Animation -->
+    <BackgroundAnimation />
+    <!-- Sidebar -->
+    <el-aside
+      v-show="!isMobile || isSidebarOpen"
+      :width="isMobile ? '200px' : '230px'"
+      class="mt-4 rounded-2xl m-2 transition-all duration-300 animated-bg"
     >
-      <div class="container mx-auto flex items-center justify-between p-8">
-        <!-- Header Title -->
-        <h1 class="header-title">Class Management System ❤️‍🔥</h1>
-        <nav class="flex space-x-2">
-          <!-- Sidebar Toggle Button -->
-          <button @click="toggleSidebar" class="sidebar-toggle-button">
-            <span class="button_top">{{ sidebarVisible ? "😍" : "😖" }}</span>
-          </button>
-          <!-- (Logout button removed from header) -->
-        </nav>
-      </div>
-    </header>
+      <el-scrollbar class="rounded-3xl">
+        <el-menu
+          :default-openeds="['0', '10']"
+          :collapse="isMobile && !isSidebarOpen"
+        >
+          <div class="flex justify-center items-center">
+            <el-image
+              src="/soriya.png"
+              alt="Logo"
+              fit="contain"
+              class="mt-8 rounded"
+              style="width: 60%; max-height: 500px"
+            ></el-image>
+          </div>
+          <el-menu-item index="1">
+            <router-link to="/">
+              <el-icon>
+                <user />
+              </el-icon>
 
-    <div class="flex flex-grow mb-8">
-       <aside
-        v-show="sidebarVisible"
-        class="relative w-62 bg-gray-300 h-full flex flex-col rounded-br-3xl rounded-tl-3xl rounded-tr-lg rounded-bl-lg m-4 p-6 text-center font-semibold transition-transform shadow-md"
+              Human Resource
+            </router-link>
+          </el-menu-item>
+          <!-- Attendance -->
+          <el-sub-menu index="2">
+            <template #title>
+              <el-icon>
+                <calendar />
+              </el-icon>
+              Attendance
+            </template>
+            <el-menu-item-group>
+              <template #title>Attendance</template>
+              <el-menu-item index="2-1">
+                <router-link to="/attendance">Attendance</router-link>
+              </el-menu-item>
+              <el-menu-item index="2-2">
+                <router-link to="/reportattendance"
+                  >Attendance Reports</router-link
+                >
+              </el-menu-item>
+            </el-menu-item-group>
+          </el-sub-menu>
+          <!-- Award -->
+          <el-sub-menu index="3">
+            <template #title>
+              <el-icon>
+                <star />
+              </el-icon>
+             Manage Award
+            </template>
+            <el-menu-item-group>
+              <template #title>Award</template>
+              <el-menu-item index="3-1"
+                ><router-link to="/award">Manage Award</router-link></el-menu-item
+              >
+            </el-menu-item-group>
+          </el-sub-menu>
+          <!-- Recruitment -->
+          <el-sub-menu index="4">
+            <template #title>
+              <el-icon>
+                <UserFilled />
+              </el-icon>
+              Recruitment
+            </template>
+            <el-menu-item-group>
+              <template #title>Recruitment</template>
+              <el-menu-item index="4-1"
+                ><router-link to="/cadidate"
+                  >Manage Candidate</router-link
+                ></el-menu-item
+              >
+              <!-- <el-menu-item index="4-2">Manage Candidate</el-menu-item> -->
+              <el-menu-item index="4-2.1">
+                <router-link to="/shortlist"> Candidate Shortlist </router-link>
+              </el-menu-item>
+              <el-menu-item index="4-2.2"
+                ><router-link to="/interview"
+                  >Interview</router-link
+                ></el-menu-item
+              >
+              <el-menu-item index="4-2.3">
+                <router-link to="/selectcandidate"
+                  >Select Candidate</router-link
+                >
+              </el-menu-item>
+            </el-menu-item-group>
+          </el-sub-menu>
+
+          <!-- Department -->
+          <el-sub-menu index="5">
+            <template #title>
+              <el-icon>
+                <office-building />
+              </el-icon>
+              Department
+            </template>
+            <el-menu-item-group>
+              <template #title>Department</template>
+              <el-menu-item index="5-1">
+                <router-link to="/department">Add Department</router-link>
+              </el-menu-item>
+              <el-menu-item index="5-2">
+                <router-link to="/division">Add Division</router-link>
+              </el-menu-item>
+            </el-menu-item-group>
+          </el-sub-menu>
+
+          <!-- Employee -->
+          <el-sub-menu index="6">
+            <template #title>
+              <el-icon>
+                <User />
+              </el-icon>
+              Employee
+            </template>
+            <el-menu-item-group>
+              <template #title>Employee</template>
+              <el-menu-item index="6-1"
+                ><router-link to="/position"
+                  >Position</router-link
+                ></el-menu-item
+              >
+              <el-menu-item index="6-2"
+                ><router-link to="/employee"
+                  >Mange Employee</router-link
+                ></el-menu-item
+              >
+              <!-- <el-menu-item index="6-2.1">Mange Employee</el-menu-item> -->
+
+              <el-menu-item index="6-3"
+                ><router-link to="/performance"
+                  >Employee Performance</router-link
+                ></el-menu-item
+              >
+              <el-menu-item index="6-4">
+                <router-link to="/salaryemployee"
+                  >Manage Employee Salary</router-link
+                >
+              </el-menu-item>
+            </el-menu-item-group>
+          </el-sub-menu>
+          <!-- Leave -->
+          <el-sub-menu index="7">
+            <template #title>
+              <el-icon>
+                <clock />
+              </el-icon>
+              Leave
+            </template>
+            <el-menu-item-group>
+              <template #title>Leave</template>
+              <el-menu-item index="7-1">Weekly Holiday</el-menu-item>
+              <el-menu-item index="7-2">Holiday</el-menu-item>
+              <el-menu-item index="7-3">
+                <router-link to="/leavetype">Leave Type</router-link>
+              </el-menu-item>
+              <el-menu-item index="7-4">
+                <router-link to="/leaveapplication"
+                  >Leave Application</router-link
+                ></el-menu-item
+              >
+            </el-menu-item-group>
+          </el-sub-menu>
+
+          <!-- Loan -->
+          <!-- <el-sub-menu index="8">
+            <template #title>
+              <el-icon>
+                <money />
+              </el-icon>
+              Loan
+            </template>
+            <el-menu-item-group>
+              <template #title>Loan</template>
+              <el-menu-item index="8-1">Grant Loan</el-menu-item>
+              <el-menu-item index="8-2">Loan Installment</el-menu-item>
+              <el-menu-item index="8-3">Loan Report</el-menu-item>
+            </el-menu-item-group>
+          </el-sub-menu> -->
+
+          <!-- Salary -->
+          <el-sub-menu index="9">
+            <template #title>
+              <el-icon>
+                <coin />
+              </el-icon>
+              Salary
+            </template>
+            <el-menu-item-group>
+              <template #title>Payroll</template>
+              <el-menu-item index="9-1">
+                <router-link to="/salarytype">Salary Type Setup</router-link>
+              </el-menu-item>
+              <el-menu-item index="9-2">
+                <router-link to="/salarysetup">Salary SetUp</router-link>
+              </el-menu-item>
+              <el-menu-item index="9-3">
+                <router-link to="/salarygenerate">Salary Generate</router-link>
+              </el-menu-item>
+            </el-menu-item-group>
+          </el-sub-menu>
+          <!-- report -->
+          <el-sub-menu index="8">
+            <template #title>
+              <el-icon>
+                <money />
+              </el-icon>
+              Report
+            </template>
+            <el-menu-item-group>
+              <template #title>Report</template>
+              <el-menu-item index="8-1">*</el-menu-item>
+              <el-menu-item index="8-2">**</el-menu-item>
+              <el-menu-item index="8-3">***</el-menu-item>
+            </el-menu-item-group>
+          </el-sub-menu>
+        </el-menu>
+      </el-scrollbar>
+    </el-aside>
+    <!-- Main Content -->
+    <el-container>
+      <el-header
+        class="animated-bg text-white rounded-3xl flex justify-between items-center"
       >
-        <ul class="space-y-4 text-xl">
-          <li>
-            <router-link
-              to="/insertstudent"
-              :class="[ isActive('/insertstudent') ? 'bg-gray-200 text-white ' : '', 'hover:text-white font-sans text-xl block px-4 py-2 rounded-3xl' ]"
-            >
-              Student
-            </router-link>
-          </li>
-          <li>
-            <router-link
-              to="/insertteacher"
-              :class="[ isActive('/insertteacher') ? 'bg-gray-200 text-white' : '', 'hover:text-white font-sans text-xl block px-4 py-2 rounded-3xl' ]"
-            >
-              Teacher
-            </router-link>
-          </li>
-          <li>
-            <router-link
-              to="/insertcourse"
-              :class="[ isActive('/insertcourse') ? 'bg-gray-200 text-white' : '', 'hover:text-white font-sans text-xl block px-4 py-2 rounded-3xl' ]"
-            >
-              Course
-            </router-link>
-          </li>
-          <li>
-            <router-link
-              to="/insertenrollment"
-              :class="[ isActive('/insertenrollment') ? 'bg-gray-200 text-white' : '', 'hover:text-white font-sans text-xl block px-4 py-2 rounded-3xl' ]"
-            >
-              Enrollment
-            </router-link>
-          </li>
-        </ul>
-        <!-- Logout Button container (DO NOT TOUCH the </ul> above) -->
-        <div class="absolute bottom-0 left-0 w-full flex justify-center pb-4">
-          <button v-if="isLoggedIn" @click="logout" class="logout-button">
-            <span class="button_top">Logout</span>
-          </button>
+        <!-- Sidebar Toggle Button -->
+        <el-button
+          v-if="isMobile"
+          @click="toggleSidebar"
+          class="ml-2 mt-2 mr-2"
+          icon="el-icon-menu"
+          circle
+        />
+        <div class="toolbar flex items-center ml-auto">
+          <el-dropdown>
+            <el-icon class="mr-2 mt-2"><Setting /></el-icon>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item
+                  ><router-link to="/insertstudent">Kill Me</router-link>
+                </el-dropdown-item>
+                <el-dropdown-item @click="logout">Logout</el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
+          <!-- <span v-if="userEmail" class="mr-4">Logged in as: {{ userEmail }}</span> -->
+          <span><h1>{/"Soriya" : "Samphors"}</h1></span>
         </div>
-      </aside>
+      </el-header>
 
-      <!-- Main Content -->
-      <main class="flex-grow container mx-auto p-6">
-        <router-view></router-view>
-      </main>
-    </div>
-  </div>
+      <el-main class="m-6">
+        <el-scrollbar>
+          <router-view></router-view>
+        </el-scrollbar>
+      </el-main>
+    </el-container>
+  </el-container>
 </template>
 
-<script setup>
-import { ref, computed } from "vue";
-import { useRouter, useRoute } from "vue-router";
+<script lang="ts" setup>
+import { ref, onMounted, onUnmounted } from "vue";
+import { useRouter } from "vue-router";
 import { Meteor } from "meteor/meteor";
+import {
+  User,
+  Calendar,
+  Star,
+  OfficeBuilding,
+  Clock,
+  Money,
+  Coin,
+  Setting,
+  User as EmployeeIcon,
+  UserFilled,
+} from "@element-plus/icons-vue";
+// import BackgroundAnimation from "../components/BackgroundAnimation.vue";
 
+const userEmail = ref<string>("");
 const router = useRouter();
-const route = useRoute();
-const sidebarVisible = ref(true);
+const isSidebarOpen = ref(true);
+const isMobile = ref(false);
 
-const isLoggedIn = computed(() => !!Meteor.userId());
-
-const isActive = (routePath) => {
-  return route.path.startsWith(routePath);
-};
-
-const logout = () => {
-  Meteor.logout(() => {
-    router.push("/login"); // Redirect to login after logout
-  });
+const checkScreenSize = () => {
+  isMobile.value = window.innerWidth < 768;
+  if (isMobile.value) isSidebarOpen.value = false;
 };
 
 const toggleSidebar = () => {
-  sidebarVisible.value = !sidebarVisible.value;
+  isSidebarOpen.value = !isSidebarOpen.value;
+};
+
+// Function to update user email
+const updateEmail = () => {
+  const user = Meteor.user();
+  if (user && user.emails) {
+    const gmail = user.emails.find(
+      (email) => email.address.endsWith("@gmail.com") && email.verified
+    );
+    if (gmail) {
+      userEmail.value = gmail.address;
+      localStorage.setItem("userEmail", gmail.address); // Store Gmail in localStorage
+    }
+  }
+};
+
+onMounted(() => {
+  checkScreenSize();
+  window.addEventListener("resize", checkScreenSize);
+
+  // Check if email is stored in localStorage
+  const storedEmail = localStorage.getItem("userEmail");
+  if (storedEmail) {
+    userEmail.value = storedEmail;
+  } else {
+    updateEmail(); // Fetch email from Meteor
+  }
+});
+
+onUnmounted(() => {
+  window.removeEventListener("resize", checkScreenSize);
+});
+
+const logout = () => {
+  Meteor.logout((err) => {
+    if (!err) router.push("/login");
+  });
 };
 </script>
 
 <style scoped>
-/* Button Styles */
-button {
-  --button_radius: 0.75em;
-  --button_color: #e8e8e8;
-  --button_outline_color: #000000;
-  font-size: 17px;
-  font-weight: bold;
-  border: none;
-  cursor: pointer;
-  border-radius: var(--button_radius);
-  background: var(--button_outline_color);
+.layout-container-demo {
+  height: 100vh;
 }
 
-.button_top {
-  display: block;
-  box-sizing: border-box;
-  border: 2px solid var(--button_outline_color);
-  border-radius: var(--button_radius);
-  padding: 0.5em 1em;
-  background: var(--button_color);
-  color: var(--button_outline_color);
-  transform: translateY(-0.2em);
-  transition: transform 0.1s ease;
+.el-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-button:hover .button_top {
-  transform: translateY(-0.33em);
+.el-main {
+  padding: 0;
+  height: calc(100vh - 56px);
+  overflow: auto;
 }
 
-button:active .button_top {
-  transform: translateY(0);
+.toolbar {
+  display: flex;
+  align-items: center;
+}
+@keyframes gradientBG {
+  0% {
+    background: #f3f4f6;
+  } /* gray-100 */
+  25% {
+    background: #e5e7eb;
+  } /* gray-200 */
+  50% {
+    background: #d1d5db;
+  } /* gray-300 */
+  75% {
+    background: #9ca3af;
+  } /* gray-400 */
+  100% {
+    background: #f3f4f6;
+  } /* gray-100 */
 }
 
-/* Header Title Styling */
-.header-title {
-  display: inline-block;
-  padding: 0.5em 1em;
-  border: 2px solid var(--button_outline_color);
-  border-radius: var(--button_radius);
-  background: var(--button_color);
-  color: var(--button_outline_color);
-  font-size: 2rem;
-  font-weight: bold;
-  transition: transform 0.1s ease;
-}
-
-.header-title:hover {
-  transform: translateY(-0.2em);
-}
-
-/* Active Route Styling */
-.active-route {
-  display: block;
-  background: linear-gradient(to right, white);
-  border-radius: 0.75rem;
-  padding: 0.5rem 1rem;
-}
-
-/* Responsive Sidebar */
-@media (max-width: 1024px) {
-  aside {
-    width: 100%;
-  }
+.animated-bg {
+  animation: gradientBG 6s infinite alternate ease-in-out;
 }
 </style>
